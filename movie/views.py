@@ -58,12 +58,10 @@ class AddRatingAPIView(APIView):
 
     def post(self, request):
         # Fetching data
-        print("00000000000000000000")
         data = request.data
         movie_id = data.get('movie')
         user_id = data.get('user')
         rating_value = data.get('rating')
-        print("11111111111111111111")
         # Validate input data
         if not all([movie_id, user_id, rating_value]):
             return Response({'error': 'Missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
@@ -136,7 +134,6 @@ class SearchMoviesAPIView(APIView):
             total_rating = 0
             count = 0
             for rating in ratings_serializer.data:
-                print(f"movie_id: {movie.id}------- rating: {rating}")
                 total_rating += rating['rating']
                 count += 1
 
