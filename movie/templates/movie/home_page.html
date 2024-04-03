@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie</title>
+    <link rel="stylesheet" href="{% static 'movie/css/home_page.css' %}" />
+  </head>
+  <body>
+    <nav id="navbar" class="navbar">
+      <ul class="navbar-menu">
+       
+        <li><a href="/article/post_article_page/">Post Article</a></li>
+      </ul>
+      <div id="login-username" class="login-username">
+        <!-- Initially, this container will be empty -->
+    </div>   
+   </nav>
+    <hr style="border-top: 2px solid #a49cb6;">
+
+
+    <div class='page-title'> Movies </div>
+
+    <div>
+      <div id= "article-container" class="article-container">    </div>
+      <script src="{% static 'movie/js/home_page.js' %}"></script>
+  </body>
+</html>
