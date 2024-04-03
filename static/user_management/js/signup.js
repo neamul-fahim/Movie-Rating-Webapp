@@ -25,7 +25,7 @@ signupForm.addEventListener("submit", (event) => {
      if (!response.ok){
       throw new Error("Something went wrong");
      }
-     window.location.href='/login-page/'
+     window.location.href='/'
   }).catch((error) => {
       alert(error); 
     });

@@ -1,6 +1,17 @@
 async function fetchMovies(){
     try{
-        const response= await fetch("/movie/movies-API/");
+      const userToken = localStorage.getItem("authToken");
+        const response= await fetch("/movie/movies-API/",
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Token ${userToken}`,
+      
+            },
+          }
+
+        );
         if (!response.ok){
             throw new Error("Failed to fetch movies");
         }
@@ -26,24 +37,26 @@ async function getUser(){
       }
     }
     );
-    console.log(response)
-    
+   if(!response.ok){
+    throw new Error("Not Authenticated")
+   }    
     const userData= await response.json();
 
     return userData.user;
   }catch(error){
     console.error("Error fetching movies",error);
-        return null;
+    window.location.href = '/'
   }
 }
 
 async function displayMovies(){
-    const movieContainer= document.getElementById("article-container");
+    const movieContainer= document.getElementById("movie-container");
     const loginContainer = document.getElementById("login-username");
     const navbar=document.querySelector(".navbar-menu")
 
     const movies = await fetchMovies();
     const user = await getUser();
+    console.log("userid--------",user)
     
     if(movies && movies.length > 0){
         movies.forEach((movie)=>{
@@ -58,6 +71,8 @@ async function displayMovies(){
                <p class="article-title"> Genre: ${movie.genre}</p>
                <p class="article-date">Release_date: ${formattedDate} </p>
                <p class="article-date">Rating: ${movie.rating} </p>
+               <a href="/movie/rate-movie-page/${movie.id}/${user.id}/" class="rate-movie-btn">Rate Movie</a>  </div>
+
             `;
             movieContainer.appendChild(movieCard);
         })
@@ -83,13 +98,19 @@ async function displayMovies(){
       logoutButton.classList.add("logout-btn");
       logoutButton.onclick = function() {
           localStorage.removeItem('authToken');
-          location.reload(); // Refresh the page after logout
+          window.location.href="/"
       };
   
       usernameContainer.appendChild(usernameLink);
       usernameContainer.appendChild(logoutButton);
   
       loginContainer.appendChild(usernameContainer);
+  }else{
+    const usernameContainer = document.createElement("div");
+    usernameContainer.classList.add("username-container");
+
+    const usernameLink = document.createElement("a");
+    usernameLink.textContent = "User";
   }
 }
 
