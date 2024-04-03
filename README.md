@@ -26,7 +26,7 @@ I was unable to manage a cloud database. Please consider the situation.
 
 # Features
 
-1. User can Signup and Login. Implemented Token Authentication.
+1. User can Signup and Login. Implemented Custom User model using "AbstractBaseUser". Implemented Token Authentication.
 2. User can add a movie.
 3. User can view a list of all movies.
 4. User can rate a movie also can see Movie details and average rating while rating. As the user submits rating the average rating will be reflected on the screen instantly.
